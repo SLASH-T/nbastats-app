@@ -6,12 +6,19 @@ source 'https://rubygems.org'
 # Networking gems
 gem 'http'
 
-# Web app related
-gem 'econfig'
+# Development/Debugging related
 gem 'pry' # to run console in production
-gem 'puma'
 gem 'rake' # to run console in production
+
+# Web application related
+gem 'econfig'
+gem 'puma'
 gem 'roda'
+gem 'slim'
+
+# Representers
+gem 'roar'
+gem 'multi_json'
 
 group :test do
   gem 'minitest'

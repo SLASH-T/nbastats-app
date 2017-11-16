@@ -1,0 +1,26 @@
+.container
+  form role="form" action="/game" method 'post' id='add-game-form'
+    .row.vertical-align.query-bar
+      .col-xs-2
+        .text-right Season:
+      .col-xs-8
+        input{
+          types='text' name='season'
+          id='season_input' class="form-control"
+          placeholder="e.g.: 2017-PlayOffs"
+        }
+      .col-xs-2
+        button{
+          type='submit' id='game-form-submit' class='submit'
+          value='submit' class="btn btn-success"
+        } + Add Game
+    .row
+      .col-xs-12.blank-row
+  table class="table" id="game_table"
+    thead
+      tr
+        th 1GG
+        th 2GG
+        th 3GG
+    tbody
+    
