@@ -15,17 +15,18 @@ module NBAStats
 
       # GET / request
       routing.root do
-        gameinfos_json = ApiGateway.new.gameinfo(season='2017-playoff',
-                     gameid='20170416-POR-GSW')
-        gameinfos = NBAStats::GameInfosRepresenter.new(OpenStruct.new)
+        gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
+        gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
                                                 .from_json gameinfos_json
 
-        playerinfos_json = ApiGateway.new.playerinfo(season='2017-playoff',
-                     gameid='20170416-POR-GSW')
-        playerinfos = NBAStats::PlayersRepresenter.new(OpenStruct.new)
+
+        playerinfos_json = ApiGateway.new.playerinfo('2017-playoff','20170416-POR-GSW')
+        playerinfos = NBAStats::PlayerRepresenter.new(OpenStruct.new)
                                                 .from_json playerinfos_json
-        view 'home', locals: { gameinfos: gameinfos.gameinfos,
-                               playerinfos: playerinfos.players}
+        #puts playerinfos_json
+        #puts playerinfos.team_name
+        view 'home', locals: { gameinfos: gameinfos,
+                               playerinfos: playerinfos}
       end
 =begin
 

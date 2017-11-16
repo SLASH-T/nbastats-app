@@ -1,5 +1,5 @@
 .container
-  form role="form" action="/game" method 'post' id='add-game-form'
+  form role="form" action="/game" method='post' id='add-game-form'
     .row.vertical-align.query-bar
       .col-xs-2
         .text-right Season:
@@ -19,8 +19,96 @@
   table class="table" id="game_table"
     thead
       tr
-        th 1GG
-        th 2GG
-        th 3GG
+        th Date
+        th Location
+        th Away Team
+        th home team
+        th Away Score
+        th Home Score
     tbody
-    
+      /- gameinfos.each do |gameinfo|
+      tr class="game_row" id="row"
+        td
+          span class="game_date" id="date"  #{gameinfos.date}
+        td
+          span class="game_location" id="location" #{gameinfos.location}
+        td
+          span class="game_away_team" id="away_team" #{gameinfos.away_team}
+        td
+          span class="game_home_team" id="home_team" #{gameinfos.home_team}
+        td
+          span class="game_away_score" id="away_score" #{gameinfos.away_score}
+        td
+          span class="game_home_score" id="home_score" #{gameinfos.home_score}
+        td
+
+  table class="table" id="player_table"
+    thead
+      tr
+        th Team Name
+        th Player Name
+        th FGM
+        th FGA
+        th FGP
+        th TPM
+        th TPP
+        th TPA
+        th FTM
+        th FTA
+        th FTP
+        th OREB
+        th DREB
+        th REB
+        th AST
+        th TOV
+        th STL
+        th BLK
+        th PF
+        th PTS
+        th PM
+    tbody
+      /- playerinfos.each do |playerinfo|
+      tr class="player_row" id="row"
+        td
+          span class="player_team_name" id="team_name"  #{playerinfos.team_name}
+        td
+          span class="player_player_name" id="player_name" #{playerinfos.player_name}
+        td
+          span class="player_FGM" id="FGM" #{playerinfos.FGM}
+        td
+          span class="player_FGA" id="FGA" #{playerinfos.FGA}
+        td
+          span class="player_FGP" id="FGP" #{playerinfos.FGP}
+        td
+          span class="player_TPM" id="TPM" #{playerinfos.TPM}
+        td
+          span class="player_TPP" id="TPP" #{playerinfos.TPP}
+        td
+          span class="player_TPA" id="TPA" #{playerinfos.TPA}
+        td
+          span class="player_FTM" id="FTM" #{playerinfos.FTM}
+        td
+          span class="player_FTA" id="FTA" #{playerinfos.FTA}
+        td
+          span class="player_FTP" id="FTP" #{playerinfos.FTP}
+        td
+          span class="player_OREB" id="OREB" #{playerinfos.OREB}
+        td
+          span class="player_DREB" id="DREB" #{playerinfos.DREB}
+        td
+          span class="player_REB" id="REB" #{playerinfos.REB}
+        td
+          span class="player_AST" id="AST" #{playerinfos.AST}
+        td
+          span class="player_TOV" id="TOV" #{playerinfos.TOV}
+        td
+          span class="player_STL" id="STL" #{playerinfos.STL}
+        td
+          span class="player_BLK" id="BLK" #{playerinfos.BLK}
+        td
+          span class="player_PF" id="PF" #{playerinfos.PF}
+        td
+          span class="player_OREB" id="PTS" #{playerinfos.PTS}
+        td
+          span class="player_PM" id="PM" #{playerinfos.PM}
+        td
