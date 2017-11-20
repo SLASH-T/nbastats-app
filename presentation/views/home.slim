@@ -67,48 +67,48 @@
         th PTS
         th PM
     tbody
-      /- playerinfos.each do |playerinfo|
-      tr class="player_row" id="row"
-        td
-          span class="player_team_name" id="team_name"  #{playerinfos.team_name}
-        td
-          span class="player_player_name" id="player_name" #{playerinfos.player_name}
-        td
-          span class="player_FGM" id="FGM" #{playerinfos.FGM}
-        td
-          span class="player_FGA" id="FGA" #{playerinfos.FGA}
-        td
-          span class="player_FGP" id="FGP" #{playerinfos.FGP}
-        td
-          span class="player_TPM" id="TPM" #{playerinfos.TPM}
-        td
-          span class="player_TPP" id="TPP" #{playerinfos.TPP}
-        td
-          span class="player_TPA" id="TPA" #{playerinfos.TPA}
-        td
-          span class="player_FTM" id="FTM" #{playerinfos.FTM}
-        td
-          span class="player_FTA" id="FTA" #{playerinfos.FTA}
-        td
-          span class="player_FTP" id="FTP" #{playerinfos.FTP}
-        td
-          span class="player_OREB" id="OREB" #{playerinfos.OREB}
-        td
-          span class="player_DREB" id="DREB" #{playerinfos.DREB}
-        td
-          span class="player_REB" id="REB" #{playerinfos.REB}
-        td
-          span class="player_AST" id="AST" #{playerinfos.AST}
-        td
-          span class="player_TOV" id="TOV" #{playerinfos.TOV}
-        td
-          span class="player_STL" id="STL" #{playerinfos.STL}
-        td
-          span class="player_BLK" id="BLK" #{playerinfos.BLK}
-        td
-          span class="player_PF" id="PF" #{playerinfos.PF}
-        td
-          span class="player_OREB" id="PTS" #{playerinfos.PTS}
-        td
-          span class="player_PM" id="PM" #{playerinfos.PM}
-        td
+     - playerinfos.each do |playerinfo|
+        tr class="player_row" id="row"
+          td
+            span class="player_team_name" id="team_name"  #{playerinfo.team_name}
+          td
+            span class="player_player_name" id="player_name" #{playerinfo.player_name}
+          td
+            span class="player_FGM" id="FGM" #{playerinfo.FGM}
+          td
+            span class="player_FGA" id="FGA" #{playerinfo.FGA}
+          td
+            span class="player_FGP" id="FGP" #{playerinfo.FGP}
+          td
+            span class="player_TPM" id="TPM" #{playerinfo.TPM}
+          td
+            span class="player_TPP" id="TPP" #{playerinfo.TPP}
+          td
+            span class="player_TPA" id="TPA" #{playerinfo.TPA}
+          td
+            span class="player_FTM" id="FTM" #{playerinfo.FTM}
+          td
+            span class="player_FTA" id="FTA" #{playerinfo.FTA}
+          td
+            span class="player_FTP" id="FTP" #{playerinfo.FTP}
+          td
+            span class="player_OREB" id="OREB" #{playerinfo.OREB}
+          td
+            span class="player_DREB" id="DREB" #{playerinfo.DREB}
+          td
+            span class="player_REB" id="REB" #{playerinfo.REB}
+          td
+            span class="player_AST" id="AST" #{playerinfo.AST}
+          td
+            span class="player_TOV" id="TOV" #{playerinfo.TOV}
+          td
+            span class="player_STL" id="STL" #{playerinfo.STL}
+          td
+            span class="player_BLK" id="BLK" #{playerinfo.BLK}
+          td
+            span class="player_PF" id="PF" #{playerinfo.PF}
+          td
+            span class="player_OREB" id="PTS" #{playerinfo.PTS}
+          td
+            span class="player_PM" id="PM" #{playerinfo.PM}
+          td

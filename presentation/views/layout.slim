@@ -2,7 +2,6 @@ doctype html
 html
   head
     title NBAStats
-
     / Bootstrap CSS and theme(United Theme)
     link{
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -35,6 +34,7 @@ html
           .col-xs-12
             h1
               a href="/" NBAStats
+              small  The Current Time is #{Time.now} 
       section
         == yield
       footer
