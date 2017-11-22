@@ -17,17 +17,21 @@ gem 'roda'
 gem 'slim'
 
 # Representers
-gem 'roar'
+gem 'dry-validation'
 gem 'multi_json'
+gem 'roar'
+
+# Services
+gem 'dry-monads'
+gem 'dry-transaction'
 
 group :test do
   gem 'minitest'
   gem 'minitest-rg'
   gem 'rack-test'
-  gem 'rake'
-  gem 'simplecov'
-  gem 'vcr'
-  gem 'webmock'
+
+  gem 'headless'
+  gem 'watir'
 end
 
 group :development, :test do
