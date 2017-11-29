@@ -41,74 +41,102 @@
         td
           span class="game_home_score" id="home_score" #{gameinfos.home_score}
         td
+    table class="table" id="player_table"
+      thead
+        tr
+          th Team Name
+          th Player Name
+          th FGM
+          th FGA
+          th FGP
+          th TPM
+          th TPP
+          th TPA
+          th FTM
+          th FTA
+          th FTP
+          th OREB
+          th DREB
+          th REB
+          th AST
+          th TOV
+          th STL
+          th BLK
+          th PF
+          th PTS
+          th PM
+      tbody
+       - playerinfos.each do |playerinfo|
+          tr class="player_row" id="row"
+            td
+              span class="player_team_name" id="team_name"  #{playerinfo.team_name}
+            td
+              span class="player_player_name" id="player_name" #{playerinfo.player_name}
+            td
+              span class="player_FGM" id="FGM" #{playerinfo.FGM}
+            td
+              span class="player_FGA" id="FGA" #{playerinfo.FGA}
+            td
+              span class="player_FGP" id="FGP" #{playerinfo.FGP}
+            td
+              span class="player_TPM" id="TPM" #{playerinfo.TPM}
+            td
+              span class="player_TPP" id="TPP" #{playerinfo.TPP}
+            td
+              span class="player_TPA" id="TPA" #{playerinfo.TPA}
+            td
+              span class="player_FTM" id="FTM" #{playerinfo.FTM}
+            td
+              span class="player_FTA" id="FTA" #{playerinfo.FTA}
+            td
+              span class="player_FTP" id="FTP" #{playerinfo.FTP}
+            td
+              span class="player_OREB" id="OREB" #{playerinfo.OREB}
+            td
+              span class="player_DREB" id="DREB" #{playerinfo.DREB}
+            td
+              span class="player_REB" id="REB" #{playerinfo.REB}
+            td
+              span class="player_AST" id="AST" #{playerinfo.AST}
+            td
+              span class="player_TOV" id="TOV" #{playerinfo.TOV}
+            td
+              span class="player_STL" id="STL" #{playerinfo.STL}
+            td
+              span class="player_BLK" id="BLK" #{playerinfo.BLK}
+            td
+              span class="player_PF" id="PF" #{playerinfo.PF}
+            td
+              span class="player_OREB" id="PTS" #{playerinfo.PTS}
+            td
+              span class="player_PM" id="PM" #{playerinfo.PM}
+            td
 
-  table class="table" id="player_table"
+  table class="table" id="schedule_table"
     thead
       tr
-        th Team Name
-        th Player Name
-        th FGM
-        th FGA
-        th FGP
-        th TPM
-        th TPP
-        th TPA
-        th FTM
-        th FTA
-        th FTP
-        th OREB
-        th DREB
-        th REB
-        th AST
-        th TOV
-        th STL
-        th BLK
-        th PF
-        th PTS
-        th PM
-    tbody
-     - playerinfos.each do |playerinfo|
-        tr class="player_row" id="row"
-          td
-            span class="player_team_name" id="team_name"  #{playerinfo.team_name}
-          td
-            span class="player_player_name" id="player_name" #{playerinfo.player_name}
-          td
-            span class="player_FGM" id="FGM" #{playerinfo.FGM}
-          td
-            span class="player_FGA" id="FGA" #{playerinfo.FGA}
-          td
-            span class="player_FGP" id="FGP" #{playerinfo.FGP}
-          td
-            span class="player_TPM" id="TPM" #{playerinfo.TPM}
-          td
-            span class="player_TPP" id="TPP" #{playerinfo.TPP}
-          td
-            span class="player_TPA" id="TPA" #{playerinfo.TPA}
-          td
-            span class="player_FTM" id="FTM" #{playerinfo.FTM}
-          td
-            span class="player_FTA" id="FTA" #{playerinfo.FTA}
-          td
-            span class="player_FTP" id="FTP" #{playerinfo.FTP}
-          td
-            span class="player_OREB" id="OREB" #{playerinfo.OREB}
-          td
-            span class="player_DREB" id="DREB" #{playerinfo.DREB}
-          td
-            span class="player_REB" id="REB" #{playerinfo.REB}
-          td
-            span class="player_AST" id="AST" #{playerinfo.AST}
-          td
-            span class="player_TOV" id="TOV" #{playerinfo.TOV}
-          td
-            span class="player_STL" id="STL" #{playerinfo.STL}
-          td
-            span class="player_BLK" id="BLK" #{playerinfo.BLK}
-          td
-            span class="player_PF" id="PF" #{playerinfo.PF}
-          td
-            span class="player_OREB" id="PTS" #{playerinfo.PTS}
-          td
-            span class="player_PM" id="PM" #{playerinfo.PM}
-          td
+        th Location
+        th Date
+        th Away Team
+        th Home Team
+        th GamePlayed_Tag
+        th Away Score
+        th Home Score
+      tbody
+       - schedulesinfos.each do |scheduleinfo|
+          tr class="schedule_row" id="row"
+            td
+              span class="schedule_location" id="schedule_location"  #{scheduleinfo.location}
+            td
+              span class="schedule_date" id="schedule_date" #{scheduleinfo.date}
+            td
+              span class="schedule_away_team" id="schedule_away_team" #{scheduleinfo.away_team}
+            td
+              span class="schedule_home_team" id="schedule_home_team" #{scheduleinfo.home_team}
+            td
+              span class="schedule_GamePlayed_Tag" id="schedule_GamePlayed_Tag" #{scheduleinfo.gameplayed_tag}
+            td
+              span class="schedule_away_score" id="schedule_away_score" #{scheduleinfo.away_score}
+            td
+              span class="schedule_home_score" id="schedule_home_score" #{scheduleinfo.home_score}
+            td

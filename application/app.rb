@@ -19,13 +19,17 @@ module NBAStats
         gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
                                                 .from_json gameinfos_json
 
-
         playerinfos_json = ApiGateway.new.playerinfo('2017-playoff','20170416-POR-GSW')
         playerinfos = NBAStats::PlayersRepresenter.new(OpenStruct.new)
                                                 .from_json playerinfos_json
 
+        schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
+        schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
+                                                .from_json schedules_json
         view 'home', locals: { gameinfos: gameinfos,
-                               playerinfos: playerinfos.players}
+                               playerinfos: playerinfos.players,
+                               schedulesinfos: schedulesinfos.schedules
+                             }
       end
 =begin
 
