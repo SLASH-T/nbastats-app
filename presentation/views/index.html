@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../assets/css/simple-sidebar.css" rel="stylesheet" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="../assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css">
 
     <!-- ... -->
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../assets/bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
-    
+
 
 </head>
 
@@ -45,7 +45,7 @@
                         <div class='col-sm-6'>
                             <div class="form-group">
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input id = "INPUT_DATETIME" type='text' class="form-control">
+                                    <input id = "INPUT_DATETIME" name ='INPUT_DATETIME' type='text' class="form-control" value="20170416" >
                                     <span id = "input_pick" class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -54,12 +54,27 @@
                         </div>
                         <script type="text/javascript">
                             $(function () {
-                                $('#datetimepicker1').datetimepicker({
-                                    format: 'DD/MM/YYYY'
-                                });
-                                //$('.form_date').datetimepicker({
-                                //    format: DD-MM-YYYY;
+                                //$('#datetimepicker1').datetimepicker({
+                                //    format: 'DD/MM/YYYY'
                                 //});
+                                $("#datetimepicker1").datetimepicker({
+                                  format: 'YYYY/MM/DD',
+                                }).on('dp.change', function (e) {
+                                        //Get new date value from the field on change
+                                        var d = new Date(e.date);
+                                        var value = "";
+                                        //year
+                                        value += d.getFullYear();
+
+                                        var month = d.getMonth()+1;
+                                        month = month < 10 ? '0' + month : '' + month ;
+                                        value += month;
+
+                                        var date = d.getDate();
+                                        date = date < 10 ? '0' + date : '' + date ;
+                                        value += date;
+                                        console.log(value);
+                                });
                             });
                         </script>
                     </div>

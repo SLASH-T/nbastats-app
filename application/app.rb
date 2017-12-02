@@ -8,6 +8,7 @@ module NBAStats
   class App < Roda
     plugin :render, engine: 'slim', views: 'presentation/views'
     plugin :assets, css: 'style.css', path: 'presentation/assets'
+    plugin :assets, css: 'simple-sidebar.css' , path: 'presentation/assets'
 
     route do |routing|
       routing.assets
@@ -26,7 +27,7 @@ module NBAStats
         schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
         schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
                                                 .from_json schedules_json
-        view 'home', locals: { gameinfos: gameinfos,
+        view 'index', locals: { gameinfos: gameinfos,
                                playerinfos: playerinfos.players,
                                schedulesinfos: schedulesinfos.schedules
                              }

@@ -1,62 +1,29 @@
-doctype html
-html lang="en" 
-  head
-    meta charset="utf-8" /
-    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /
-    meta content="" name="description" /
-    meta content="" name="author" /
-    title Simple Sidebar - Start Bootstrap Template
-    /! Bootstrap core CSS
-    link href="../assets/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" /
-    /! Custom styles for this template
-    link href="../assets/css/simple-sidebar.css" rel="stylesheet" /
-    link href="../assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" /
-    /! ...
-    script src="../assets/bower_components/jquery/dist/jquery.min.js" type="text/javascript" 
-    script src="../assets/bower_components/moment/min/moment.min.js" type="text/javascript" 
-    script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" 
-    script src="../assets/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js" type="text/javascript" 
-  body
-    #wrapper
-      /! Sidebar
-      #sidebar-wrapper
-        ul.sidebar-nav
-          li.sidebar-brand
-            a href="#" 
-              | NBA
+#wrapper
+  #sidebar-wrapper
+    ul.sidebar-nav
+      li.sidebar-brand
+        a[href="#"]
+          |  NBA
         .container
           .row
             .col-sm-6
               .form-group
                 #datetimepicker1.input-group.date
-                  input#INPUT_DATETIME.form-control type="text" /
+                  input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="20170416"]
                   span#input_pick.input-group-addon
                     span.glyphicon.glyphicon-calendar
-            javascript:
-              | $(function () {
-                  | $('#datetimepicker1').datetimepicker({
-                      | format: 'DD/MM/YYYY'
-                  | });
-                  /!/$('.form_date').datetimepicker({
-                  /!/    format: DD-MM-YYYY;
-                  /!/});
-              | });
-      /! /#sidebar-wrapper
-      /! Page Content
-      #page-content-wrapper
-        .container-fluid
-          h1 TOP 5 Today
-          p
-            | test
-            code> #page-content-wrapper
-            | \.
-          a#menu-toggle.btn.btn-info href="#menu-toggle"  Toggle Menu
-      /! /#page-content-wrapper
-    /! /#wrapper
-    /! Menu Toggle Script
-    javascript:
-      | $("#menu-toggle").click(function(e) {
-          | e.preventDefault();
-          | $("#wrapper").toggleClass("toggled");
-      | });
-
+            script[type="text/javascript"]
+              |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); }); });
+  #page-content-wrapper
+    .container-fluid
+      h1
+        | TOP 5 Today
+      p
+        | test
+        code
+          | #page-content-wrapper
+        | .
+      a#menu-toggle.btn.btn-info[href="#menu-toggle"]
+        | Toggle Menu
+      script[type="text/javascript"]
+        |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });
