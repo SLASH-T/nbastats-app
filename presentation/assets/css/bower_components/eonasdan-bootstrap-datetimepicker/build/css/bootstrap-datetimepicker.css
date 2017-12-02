@@ -10,21 +10,25 @@
   display: block;
   margin: 2px 0;
   padding: 4px;
-  width: 19em;
+  width: auto;
 }
+.bootstrap-datetimepicker-widget.dropdown-menu li {
+  text-indent: 1px;
+}
+
 @media (min-width: 768px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
-    width: 38em;
+    width: 8em;
   }
 }
 @media (min-width: 992px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
-    width: 38em;
+    width: 8em;
   }
 }
 @media (min-width: 1200px) {
   .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
-    width: 38em;
+    width: 8em;
   }
 }
 .bootstrap-datetimepicker-widget.dropdown-menu:before,
@@ -279,9 +283,9 @@
   color: #777777;
 }
 .bootstrap-datetimepicker-widget table td.day {
-  height: 20px;
-  line-height: 20px;
-  width: 20px;
+  height: 15px;
+  line-height: 15px;
+  width: 15px;
 }
 .bootstrap-datetimepicker-widget table td.day:hover,
 .bootstrap-datetimepicker-widget table td.hour:hover,

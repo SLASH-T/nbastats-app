@@ -327,7 +327,7 @@
             },
 
             getTemplate = function () {
-                var template = $('<div>').addClass('bootstrap-datetimepicker-widget dropdown-menu'),
+                var template = $("<div>").addClass('bootstrap-datetimepicker-widget dropdown-menu'),
                     dateView = $('<div>').addClass('datepicker').append(getDatePickerTemplate()),
                     timeView = $('<div>').addClass('timepicker').append(getTimePickerTemplate()),
                     content = $('<ul>').addClass('list-unstyled'),
