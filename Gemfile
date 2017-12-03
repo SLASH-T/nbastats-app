@@ -15,8 +15,6 @@ gem 'econfig'
 gem 'puma'
 gem 'roda'
 gem 'slim'
-gem 'momentjs-rails'
-gem 'bootstrap3-datetimepicker-rails'
 
 # Representers
 gem 'dry-validation'

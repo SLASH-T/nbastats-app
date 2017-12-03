@@ -7,6 +7,5 @@ require 'rack/test'
 include Rack::Test::Methods
 
 def app
-  NBAStats::Api
+  NBAStats::App
 end
-

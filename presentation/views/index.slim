@@ -5,15 +5,16 @@
         a[href="#"]
           |  NBA
         .container
-          .row
-            .col-sm-6
-              .form-group
-                #datetimepicker1.input-group.date
-                  input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="20170416"]
-                  span#input_pick.input-group-addon
-                    span.glyphicon.glyphicon-calendar
-            script[type="text/javascript"]
-              |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); }); });
+          form role="form" action="/schedule" method='post' id='add_game'
+            .row
+              .col-sm-6
+                .form-group
+                  #datetimepicker1.input-group.date
+                    input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="20170410"]
+                    span#input_pick.input-group-addon
+                      span.glyphicon.glyphicon-calendar
+              script[type="text/javascript"]
+                |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); $("#add_game").submit(); }); });
   #page-content-wrapper
     .container-fluid
       h1

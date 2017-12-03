@@ -45,6 +45,16 @@ task :respec do
   sh "rerun -c 'rake spec' --ignore 'coverage/*'"
 end
 
+namespace :run do
+  task :dev do
+    sh 'rerun -c "rackup -p 9090"'
+  end
+
+  task :test do
+    sh 'RACK_ENV=test rerun -c "rackup -p 9000"'
+  end
+end
+
 desc 'console test'
 task :console do
   sh 'pry -r ./spec/test_load_all'
@@ -76,4 +86,3 @@ namespace :quality do
     sh 'reek lib/'
   end
 end
-

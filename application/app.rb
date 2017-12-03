@@ -2,6 +2,7 @@
 
 require 'roda'
 require 'slim'
+require 'slim/include'
 
 module NBAStats
   # Web App
@@ -9,6 +10,9 @@ module NBAStats
     plugin :render, engine: 'slim', views: 'presentation/views'
     plugin :assets, css: 'style.css', path: 'presentation/assets'
     plugin :assets, css: 'simple-sidebar.css' , path: 'presentation/assets'
+    plugin :flash
+
+    #use Rack::Session::Cookie, secret: config.SESSION_SECRET
 
     route do |routing|
       routing.assets
@@ -16,6 +20,8 @@ module NBAStats
 
       # GET / request
       routing.root do
+        #repos_json = ApiGateway.new.scheduleinfo
+=begin
         gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
         gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
                                                 .from_json gameinfos_json
@@ -27,10 +33,21 @@ module NBAStats
         schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
         schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
                                                 .from_json schedules_json
-        view 'index', locals: { gameinfos: gameinfos,
+=end
+        view 'index'
+=begin
+        , locals: { gameinfos: gameinfos,
                                playerinfos: playerinfos.players,
                                schedulesinfos: schedulesinfos.schedules
                              }
+=end
+      end
+      routing.on 'schedule' do
+        routing.post do
+           create_request = Forms::DateRequest.call(routing.params)
+           result = AddGame.new.call(create_request)
+        end
+        routing.redirect '/'
       end
 =begin
 
