@@ -1,4 +1,5 @@
 require 'http'
+require 'json'
 
 module NBAStats
   class ApiGateway
@@ -33,11 +34,11 @@ module NBAStats
     def call_api(method, resources)
       url_route = [@config.api_url, resources].flatten.join'/'
 
-      puts url_route
+      #puts url_route
       result = HTTP.send(method, url_route)
       #puts result
       raise(result.to_s) if result.code >= 300
-      result.to_s
+      JSON.parse(result.to_s)
     end
   end
 

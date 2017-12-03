@@ -3,6 +3,8 @@
 require 'roda'
 require 'slim'
 require 'slim/include'
+require 'benchmark'
+require 'concurrent'
 
 module NBAStats
   # Web App
@@ -12,11 +14,10 @@ module NBAStats
     plugin :assets, css: 'simple-sidebar.css' , path: 'presentation/assets'
     plugin :flash
 
-    #use Rack::Session::Cookie, secret: config.SESSION_SECRET
+    use Rack::Session::Cookie
 
     route do |routing|
       routing.assets
-      app = App
 
       # GET / request
       routing.root do
@@ -34,6 +35,7 @@ module NBAStats
         schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
                                                 .from_json schedules_json
 =end
+
         view 'index'
 =begin
         , locals: { gameinfos: gameinfos,
@@ -42,12 +44,58 @@ module NBAStats
                              }
 =end
       end
+
       routing.on 'schedule' do
         routing.post do
            create_request = Forms::DateRequest.call(routing.params)
            result = AddGame.new.call(create_request)
+           puts "---"
+           puts result.success
+           puts result.success['schedules']
+           puts "---"
+
+           def sync(schedule_hash)
+             # schedule_hash = result.success['schedules']
+             schedule_hash.each do |game|
+               game_id = game['date'] + '-' + game['away_abbreviation'] + '-' + game['home_abbreviation']
+               # puts game_id
+               game_info = ApiGateway.new.gameinfo('2017-playoff', game_id)
+               # puts game_info
+               player_info = ApiGateway.new.playerinfo('2017-playoff', game_id)
+               # puts player_info
+             end
+
+           end
+
+           def conc(schedule_hash)
+             # schedule_hash = result.success['schedules']
+             schedule_hash.each do |game|
+               Concurrent::Promise.execute do
+                 game_id = game['date'] + '-' + game['away_abbreviation'] + '-' + game['home_abbreviation']
+                 # puts game_id
+                 game_info = ApiGateway.new.gameinfo('2017-playoff', game_id)
+                 # puts game_info
+                 player_info = ApiGateway.new.playerinfo('2017-playoff', game_id)
+               end
+               # puts player_info
+             end
+           end
+
+           Benchmark.bm do |x|
+             x.report('sync') { sync(result.success['schedules']) }
+             # x.report('conc') { conc(result.success['schedules']) }
+           end
+
+           if result.success?
+             flash[:notice] = 'New Schedule added!'
+           else
+             flash[:error] = 'Cannot New Schedule!'
+           end
+
+           routing.redirect '/'
+
+
         end
-        routing.redirect '/'
       end
 =begin
 

@@ -19,9 +19,8 @@ module NBAStats
     end
 
     def add_game(input)
-      puts input[:season]
-      ApiGateway.new.scheduleinfo(input[:season],input[:date])
-      Right(input)
+      result = ApiGateway.new.scheduleinfo(input[:season],input[:date])
+      Right(result)
     rescue StandardError => error
       Left(error.to_s)
     end
