@@ -2,8 +2,8 @@
   #sidebar-wrapper
     ul.sidebar-nav
       li.sidebar-brand
-        a[href="#"]
-          |  NBA
+        h1 id='main_header'
+          a href="/" NBA
         .container
           form role="form" action="/schedule" method='post' id='add_game'
             .row
@@ -17,14 +17,19 @@
                 |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); $("#add_game").submit(); }); });
   #page-content-wrapper
     .container-fluid
-      h1
+      h1 id='p_header'
         | TOP 5 Today
       p
         | test
         code
           | #page-content-wrapper
         | .
-      a#menu-toggle.btn.btn-info[href="#menu-toggle"]
+      button{
+           type='button' id='menu-toggle' name='menu-toggle'
+           class='btn btn-info'
+           a.href="#menu-toggle"
+      } Toggle Menu
+      /a#menu-toggle.btn.btn-info[href="#menu-toggle"]
         | Toggle Menu
       script[type="text/javascript"]
         |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });

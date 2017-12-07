@@ -1,4 +1,4 @@
-ENV['RACK_ENV'] = 'development'
+ENV['RACK_ENV'] = 'test'
 
 require 'minitest/autorun'
 require 'minitest/rg'
@@ -7,9 +7,8 @@ require 'headless'
 
 require './init.rb'
 
-HOST = 'http://localhost:9000'
+HOST = 'http://localhost:9292'
 
 def homepage
   HOST
 end
- 
