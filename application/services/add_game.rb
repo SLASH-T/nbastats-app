@@ -1,4 +1,5 @@
 require 'dry/transaction'
+require 'json'
 
 module NBAStats
   class AddGame
@@ -6,6 +7,7 @@ module NBAStats
 
     step :validate_input
     step :add_game
+    step :parse_game
 
     def validate_input(input)
       if input.success?
@@ -20,9 +22,18 @@ module NBAStats
 
     def add_game(input)
       result = ApiGateway.new.scheduleinfo(input[:season],input[:date])
-      Right(result)
+      Right(result: result)
     rescue StandardError => error
       Left(error.to_s)
+    end
+
+    def parse_game(input)
+      result_json = JSON.parse(input[:result])
+      if !result_json['schedules'].empty?
+        Right(result_json)
+      else
+        Left("error")
+      end
     end
   end
 end
