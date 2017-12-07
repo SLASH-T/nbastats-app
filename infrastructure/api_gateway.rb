@@ -38,7 +38,7 @@ module NBAStats
       result = HTTP.send(method, url_route)
       #puts result
       raise(result.to_s) if result.code >= 300
-      JSON.parse(result.to_s)
+      result.to_s
     end
   end
 

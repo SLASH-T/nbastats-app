@@ -10,7 +10,7 @@
               .col-sm-6
                 .form-group
                   #datetimepicker1.input-group.date
-                    input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="20170410"]
+                    input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="2017/04/1"]
                     span#input_pick.input-group-addon
                       span.glyphicon.glyphicon-calendar
               script[type="text/javascript"]
@@ -28,3 +28,29 @@
         | Toggle Menu
       script[type="text/javascript"]
         |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });
+
+  table class="table" id="game_table"
+    thead
+      tr
+        th Date
+        th Location
+        th Away Team
+        th home team
+        th Away Score
+        th Home Score
+    tbody
+      - gameinfos.each do |gameinfo|
+        tr class="game_row" id="row"
+          td
+            span class="game_date" id="date"  #{gameinfo.date}
+          td
+            span class="game_location" id="location" #{gameinfo.location}
+          td
+            span class="game_away_team" id="away_team" #{gameinfo.away_team}
+          td
+            span class="game_home_team" id="home_team" #{gameinfo.home_team}
+          td
+            span class="game_away_score" id="away_score" #{gameinfo.away_score}
+          td
+            span class="game_home_score" id="home_score" #{gameinfo.home_score}
+          td
