@@ -23,8 +23,34 @@ module NBAStats
 
       # GET / request
       routing.root do
-        #repos_json = ApiGateway.new.scheduleinfo
-      routing.redirect '/schedule'
+        routing.redirect '/schedule'
+      end
+
+      routing.on 'schedule' do
+        create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
+        result = AddGame.new.call(create_request)
+        json_result = JSON.parse(result.success)
+        arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
+
+        routing.post do
+           create_request = Forms::DateRequest.call(routing.params)
+           result = AddGame.new.call(create_request)
+           json_result = JSON.parse(result.success)
+
+           arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
+
+           if result.success?
+             flash[:notice] = 'New Schedule added!'
+             view 'index', locals: { gameinfos: arr_game_info }
+           else
+             flash[:error] = 'Cannot New Schedule!'
+           end
+        end
+        view 'index', locals: { gameinfos: arr_game_info }
+      end
+    end
+  end
+end
 =begin
         gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
         gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
@@ -47,32 +73,3 @@ module NBAStats
                                schedulesinfos: schedulesinfos.schedules
                              }
 =end
-      end
-
-      routing.on 'schedule' do
-
-        create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
-        result = AddGame.new.call(create_request)
-        json_result = JSON.parse(result.success)
-        arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
-        
-        routing.post do
-           create_request = Forms::DateRequest.call(routing.params)
-           result = AddGame.new.call(create_request)
-           json_result = JSON.parse(result.success)
-
-           arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
-
-           if result.success?
-             flash[:notice] = 'New Schedule added!'
-             view 'index', locals: { gameinfos: arr_game_info }
-           else
-             flash[:error] = 'Cannot New Schedule!'
-           end
-
-        end
-        view 'index', locals: { gameinfos: arr_game_info }
-      end
-    end
-  end
-end
