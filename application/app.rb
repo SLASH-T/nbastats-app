@@ -23,30 +23,60 @@ module NBAStats
 
       # GET / request
       routing.root do
-        routing.redirect '/schedule'
+        #repos_json = ApiGateway.new.scheduleinfo
+        create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
+        result = AddGame.new.call(create_request)
+        # json_result = JSON.parse(result.success)
+        # arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+        if result.success?
+          flash[:notice] = 'New Schedule added!'
+          arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+          view 'index', locals: { gameinfos: arr_game_info }
+        else
+          flash[:error] = 'Cannot New Schedule!'
+        end
+
+      # routing.redirect '/schedule'
+=begin
+        gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
+        gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
+                                                .from_json gameinfos_json
+
+        playerinfos_json = ApiGateway.new.playerinfo('2017-playoff','20170416-POR-GSW')
+        playerinfos = NBAStats::PlayersRepresenter.new(OpenStruct.new)
+                                                .from_json playerinfos_json
+
+        schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
+        schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
+                                                .from_json schedules_json
+
+
+        view 'index'
+=end
+=begin
+        , locals: { gameinfos: gameinfos,
+                               playerinfos: playerinfos.players,
+                               schedulesinfos: schedulesinfos.schedules
+                             }
+=end
       end
 
       routing.on 'schedule' do
-        create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
-        result = AddGame.new.call(create_request)
-        json_result = JSON.parse(result.success)
-        arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
-
         routing.post do
            create_request = Forms::DateRequest.call(routing.params)
            result = AddGame.new.call(create_request)
-           json_result = JSON.parse(result.success)
-
-           arr_game_info = LoadData.new.load_gameinfo(json_result['schedules'])
+           puts result
+           # json_result = JSON.parse(result.success)
 
            if result.success?
              flash[:notice] = 'New Schedule added!'
+             arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
              view 'index', locals: { gameinfos: arr_game_info }
            else
-             flash[:error] = 'Cannot New Schedule!'
+             flash[:error] = 'No Game Today!!'
+             routing.redirect '/'
            end
         end
-        view 'index', locals: { gameinfos: arr_game_info }
       end
     end
   end
