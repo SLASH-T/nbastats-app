@@ -36,7 +36,9 @@ module NBAStats
 
       #puts url_route
       result = HTTP.send(method, url_route)
-      #puts result
+      #puts "==|+=="
+      #puts result.to_s
+      #puts "==|-=="
       raise(result.to_s) if result.code >= 300
       result.to_s
     end

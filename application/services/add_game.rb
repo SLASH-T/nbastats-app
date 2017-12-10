@@ -29,10 +29,17 @@ module NBAStats
 
     def parse_game(input)
       result_json = JSON.parse(input[:result])
-      if !result_json['schedules'].empty?
-        Right(result_json)
+      #result_json.each_key {|key| puts key}
+      if result_json.keys[0] == "message"
+        Left(result_json.values[0])
+      elsif result_json.keys[0] == "schedules"
+        if !result_json['schedules'].empty?
+          Right(result_json)
+        else
+          Left(result_json.values[0])
+        end
       else
-        Left("error")
+        Left(result_json.values[0])
       end
     end
   end

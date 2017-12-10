@@ -65,16 +65,19 @@ module NBAStats
         routing.post do
            create_request = Forms::DateRequest.call(routing.params)
            result = AddGame.new.call(create_request)
-           puts result
-           # json_result = JSON.parse(result.success)
-
+           # puts result.value.class
            if result.success?
              flash[:notice] = 'New Schedule added!'
              arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
              view 'index', locals: { gameinfos: arr_game_info }
            else
-             flash[:error] = 'No Game Today!!'
-             routing.redirect '/'
+             if result.value[0] == "Processing the summary request"
+               flash[:notice] = "Processing........."
+               routing.redirect '/'
+             else
+               flash[:error] = 'No Game Today!!'
+               routing.redirect '/'
+             end
            end
         end
       end
