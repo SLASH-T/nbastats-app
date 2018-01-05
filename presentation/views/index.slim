@@ -35,27 +35,22 @@
         |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });
 
   table class="table" id="game_table"
-    thead
-      tr
-        th Date
-        th Location
-        th Away Team
-        th home team
-        th Away Score
-        th Home Score
     tbody
       - gameinfos.each do |gameinfo|
         tr class="game_row" id="row"
-          td
-            span class="game_date" id="date"  #{gameinfo.date}
-          td
-            span class="game_location" id="location" #{gameinfo.location}
-          td
-            span class="game_away_team" id="away_team" #{gameinfo.away_team}
-          td
-            span class="game_home_team" id="home_team" #{gameinfo.home_team}
-          td
-            span class="game_away_score" id="away_score" #{gameinfo.away_score}
-          td
-            span class="game_home_score" id="home_score" #{gameinfo.home_score}
-          td
+          td 
+            img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.away_abbreviation}_p.png"
+          td class="align-middle"
+            span style="font-size:24px;" class="game_away_team" id="away_team" #{gameinfo.away_team}
+          td class="align-middle"
+            span style="font-size:24px;" class="game_away_score" id="away_score" #{gameinfo.away_score}
+          td class="align-middle"
+            span style="font-size:24px;" final 
+          td class="align-middle"
+            span style="font-size:24px;" class="game_home_score" id="home_score" #{gameinfo.home_score}
+          td class="align-middle"
+            span style="font-size:24px;" class="game_home_team" id="home_team" #{gameinfo.home_team}
+          td class="align-middle"
+            img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.home_abbreviation}_p.png"
+          td style="font-size:24px;" class="align-middle"
+            span game data

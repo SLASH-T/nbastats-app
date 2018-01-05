@@ -13,6 +13,8 @@ module NBAStats
           game_info = ApiGateway.new.gameinfo('2017-playoff', game_id)
           gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
                                                   .from_json game_info.message
+          gameinfos['away_abbreviation'] = game['away_abbreviation']
+          gameinfos['home_abbreviation'] = game['home_abbreviation']
           arr_gameinfo.push(gameinfos)
         end
       end
