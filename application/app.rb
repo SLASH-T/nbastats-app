@@ -31,6 +31,8 @@ module NBAStats
         if result.success?
           flash[:notice] = 'New Schedule added!'
           arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+          arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
+          puts arr_player_info
           view 'index', locals: { gameinfos: arr_game_info }
         else
           flash[:error] = 'Cannot New Schedule!'
@@ -70,6 +72,8 @@ module NBAStats
            if result.success?
              flash[:notice] = 'New Schedule added!'
              arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+             arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
+             # puts arr_player_info
              view 'index', locals: { gameinfos: arr_game_info }
            else
              if result.value[0] == "Processing the summary request"
