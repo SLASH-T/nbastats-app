@@ -31,8 +31,8 @@ module NBAStats
         if result.success?
           flash[:notice] = 'New Schedule added!'
           arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
-          arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
-          puts arr_player_info
+          $arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
+          #puts arr_player_info
           view 'index', locals: { gameinfos: arr_game_info }
         else
           flash[:error] = 'Cannot New Schedule!'
@@ -62,18 +62,18 @@ module NBAStats
                              }
 =end
       end
-
+      $arr_player_info
       routing.on 'schedule' do
         routing.post do
-           puts routing.params
+           #puts routing.params
            create_request = Forms::DateRequest.call(routing.params)
            result = AddGame.new.call(create_request)
            # puts result.value.class
            if result.success?
              flash[:notice] = 'New Schedule added!'
              arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
-             arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
-             # puts arr_player_info
+             $arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
+             #puts $arr_player_info
              view 'index', locals: { gameinfos: arr_game_info }
            else
              if result.value[0] == "Processing the summary request"
@@ -88,7 +88,76 @@ module NBAStats
       end
       routing.on 'game_data' do
         routing.post do
-          puts routing.params
+=begin
+          temp = []
+          final = []
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+              temp.push(player.PTS.to_i)
+            end
+          end
+          puts temp.sort!
+          puts "-----"
+          puts temp[temp.length-1]
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+              if (temp[temp.length-1] == player.PTS.to_i)
+                final.push(player)
+              end
+              if (temp[temp.length-2] == player.PTS.to_i)
+                final.push(player)
+              end
+              if (temp[temp.length-3] == player.PTS.to_i)
+                final.push(player)
+              end
+            end
+          end
+=end
+          temp_home = []
+          temp_away = []
+          final_home = []
+          final_away = []
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+              if (player.team_name == routing.params['home_team'])
+                temp_home.push(player.PTS.to_i)
+              end
+              if (player.team_name == routing.params['away_team'])
+                temp_away.push(player.PTS.to_i)
+              end
+            end
+          end
+          puts temp_home.sort!
+          puts temp_away.sort!
+          puts "-----"
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+              if (temp_home[temp_home.length-1] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+                final_home.push(player)
+              end
+              if (temp_home[temp_home.length-2] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+                final_home.push(player)
+              end
+              if (temp_home[temp_home.length-3] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+                final_home.push(player)
+              end
+
+              if (temp_away[temp_away.length-1] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+                final_away.push(player)
+              end
+              if (temp_away[temp_away.length-2] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+                final_away.push(player)
+              end
+              if (temp_away[temp_away.length-3] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+                final_away.push(player)
+              end
+            end
+          end
+          view 'player_data',locals: { playerinfos: $arr_player_info ,
+                                       teamname: routing.params,
+                                       topplayer_home: final_home,
+                                       topplayer_away: final_away
+                                     }
         end
       end
     end

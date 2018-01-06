@@ -1,0 +1,307 @@
+#wrapper
+  #sidebar-wrapper
+    ul.sidebar-nav
+      li.sidebar-brand
+        h1 id='main_header'
+          a href="/" NBA
+        .container
+          form role="form" action="/schedule" method='post' id='add_game'
+            .row
+              .col-sm-6
+                .form-group
+                  #datetimepicker1.input-group.date
+                    input#INPUT_DATETIME.form-control[name="INPUT_DATETIME" type="text" value="2017/04/1"]
+                    span#input_pick.input-group-addon
+                      span.glyphicon.glyphicon-calendar
+              script[type="text/javascript"]
+                |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); $("#add_game").submit(); }); });
+
+  .chart-container id="home_chart"style=("height:700px; width:700px; margin: 0px auto; display:block")
+    canvas#radarChart
+    script[type="text/javascript"]
+       |var ctxR = document.getElementById("radarChart").getContext('2d');
+        ctxR.canvas.width = 300;
+        ctxR.canvas.height = 300;
+        var myRadarChart = new Chart(ctxR, {
+            type: 'radar',
+            data: {
+                labels: ["Points", "Rebound", "Steal", "Block", "Assist"],
+                datasets: [
+                    {
+                        label: "#{topplayer_home[0].player_name}",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        backgroundColor: 'rgba(151,187,205,0.3)',
+                        pointHighlightStroke: "rgba(151,187,205,0.8)",
+                        data: [#{(topplayer_home[0].PTS.to_i)/3}, #{(topplayer_home[0].REB.to_i)}, #{(topplayer_home[0].STL.to_i)*2}, #{(topplayer_home[0].BLK.to_i)*2}, #{(topplayer_home[0].AST.to_i)}]
+                    },
+                    {
+                        label: "#{topplayer_home[1].player_name}",
+                        fillColor: "rgba(247,70,74,0.2)",
+                        strokeColor: "rgba(247,70,74,1)",
+                        pointColor: "rgba(247,70,74,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        backgroundColor: 'rgba(247,70,74,0.2)',
+                        pointHighlightStroke: "rgba(247,70,74,0.8)",
+                        data: [#{(topplayer_home[1].PTS.to_i)/3}, #{(topplayer_home[1].REB.to_i)}, #{(topplayer_home[1].STL.to_i)*2}, #{(topplayer_home[1].BLK.to_i)*2}, #{(topplayer_home[1].AST.to_i)}]
+                    },
+                    {
+                        label: "#{topplayer_home[2].player_name}",
+                        fillColor: "rgba(253,180,92,0.2)",
+                        strokeColor: "rgba(253,180,92,1)",
+                        pointColor: "rgba(253,180,92,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        backgroundColor: 'rgba(253,180,92,0.3)',
+                        pointHighlightStroke: "rgba(253,180,92,0.8)",
+                        data: [#{(topplayer_home[2].PTS.to_i)/3}, #{(topplayer_home[2].REB.to_i)}, #{(topplayer_home[2].STL.to_i)*2}, #{(topplayer_home[2].BLK.to_i)*2}, #{(topplayer_home[2].AST.to_i)}]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scale: {
+                  pointLabels: {
+                    fontSize: 15
+                  }
+                }
+            }
+        });
+  .chart-container id="away_chart" style=("height:700px; width:700px; margin: 0px auto; display:none")
+       canvas#radarChart2
+       script[type="text/javascript"]
+          |var ctxR = document.getElementById("radarChart2").getContext('2d');
+           ctxR.canvas.width = 300;
+           ctxR.canvas.height = 300;
+           var myRadarChart = new Chart(ctxR, {
+               type: 'radar',
+               data: {
+                   labels: ["Points", "Rebound", "Steal", "Block", "Assist"],
+                   datasets: [
+                       {
+                           label: "#{topplayer_away[0].player_name}",
+                           fillColor: "rgba(151,187,205,0.2)",
+                           strokeColor: "rgba(151,187,205,1)",
+                           pointColor: "rgba(151,187,205,1)",
+                           pointStrokeColor: "#fff",
+                           pointHighlightFill: "#fff",
+                           backgroundColor: 'rgba(151,187,205,0.3)',
+                           pointHighlightStroke: "rgba(151,187,205,0.8)",
+                           data: [#{(topplayer_away[0].PTS.to_i)/3}, #{(topplayer_away[0].REB.to_i)}, #{(topplayer_away[0].STL.to_i)*2}, #{(topplayer_away[0].BLK.to_i)*2}, #{(topplayer_away[0].AST.to_i)}]
+                       },
+                       {
+                           label: "#{topplayer_away[1].player_name}",
+                           fillColor: "rgba(247,70,74,0.2)",
+                           strokeColor: "rgba(247,70,74,1)",
+                           pointColor: "rgba(247,70,74,1)",
+                           pointStrokeColor: "#fff",
+                           pointHighlightFill: "#fff",
+                           backgroundColor: 'rgba(247,70,74,0.2)',
+                           pointHighlightStroke: "rgba(247,70,74,0.8)",
+                           data: [#{(topplayer_away[1].PTS.to_i)/3}, #{(topplayer_away[1].REB.to_i)}, #{(topplayer_away[1].STL.to_i)*2}, #{(topplayer_away[1].BLK.to_i)*2}, #{(topplayer_away[1].AST.to_i)}]
+                       },
+                       {
+                           label: "#{topplayer_away[2].player_name}",
+                           fillColor: "rgba(253,180,92,0.2)",
+                           strokeColor: "rgba(253,180,92,1)",
+                           pointColor: "rgba(253,180,92,1)",
+                           pointStrokeColor: "#fff",
+                           pointHighlightFill: "#fff",
+                           backgroundColor: 'rgba(253,180,92,0.3)',
+                           pointHighlightStroke: "rgba(253,180,92,0.8)",
+                           data: [#{(topplayer_away[2].PTS.to_i)/3}, #{(topplayer_away[2].REB.to_i)}, #{(topplayer_away[2].STL.to_i)*2}, #{(topplayer_away[2].BLK.to_i)*2}, #{(topplayer_away[2].AST.to_i)}]
+                       }
+                   ]
+               },
+               options: {
+                   responsive: true,
+                   maintainAspectRatio: true,
+                   scale: {
+                     pointLabels: {
+                       fontSize: 15
+                     }
+                   }
+               }
+           });
+  #page-content-wrapper
+    .container-fluid
+      h1 id='p_header'
+      button{
+           type='button' id='menu-toggle' name='menu-toggle'
+           class='btn btn-info'
+           a.href="#menu-toggle"
+      } Toggle Menu
+
+      button{
+           type='button' id='switch1' name='switch1'
+           class='btn btn-info'
+           onClick="Home()"
+           style="float: right;"
+      } Home
+
+      button{
+           type='button' id='switch0' name='switch0'
+           class='btn btn-info'
+           onClick="Away()"
+           style="float: right;"
+      } Away
+
+      script[type="text/javascript"]
+        |  function Home() { document.getElementById('home_table').style.display = "block";
+                             document.getElementById('away_table').style.display = "none";
+                             document.getElementById('home_chart').style.display = "block";
+                             document.getElementById('away_chart').style.display = "none";}
+
+      script[type="text/javascript"]
+        |  function Away() { document.getElementById('home_table').style.display = "none";
+                             document.getElementById('away_table').style.display = "block";
+                             document.getElementById('home_chart').style.display = "none";
+                             document.getElementById('away_chart').style.display = "block";}
+
+      script[type="text/javascript"]
+        |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });
+
+
+  table class="table table-striped" id="home_table" style="display:block"
+    thead
+        tr
+          th Player
+          th FGM
+          th FGA
+          th FG%
+          th 3PM
+          th 3PA
+          th 3P%
+          th FTM
+          th FTA
+          th FT%
+          th OREB
+          th DREB
+          th REB
+          th AST
+          th TOV
+          th STL
+          th BLK
+          th PF
+          th PTS
+          th +/-
+    tbody
+      - playerinfos.each do |playerinfo|
+        - playerinfo.players.each do |player|
+          - if player.team_name == teamname['home_team']
+              tr class="player_row" id="row"
+                td
+                  span style="font-size:20px;" class="game_away_team" id="away_team" #{player.player_name}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.OREB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.DREB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.REB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.AST}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TOV}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.STL}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.BLK}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PF}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PTS}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
+                td class="align-middle"
+  table class="table table-striped" id="away_table" style="display:none"
+    thead
+        tr
+          th Player
+          th FGM
+          th FGA
+          th FG%
+          th 3PM
+          th 3PA
+          th 3P%
+          th FTM
+          th FTA
+          th FT%
+          th OREB
+          th DREB
+          th REB
+          th AST
+          th TOV
+          th STL
+          th BLK
+          th PF
+          th PTS
+          th +/-
+    tbody
+      - playerinfos.each do |playerinfo|
+        - playerinfo.players.each do |player|
+          - if player.team_name == teamname['away_team']
+              tr class="player_row" id="row"
+                td
+                  span style="font-size:20px;" class="game_away_team" id="away_team" #{player.player_name}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FGP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TPP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTA}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.FTP}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.OREB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.DREB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.REB}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.AST}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.TOV}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.STL}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.BLK}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PF}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PTS}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
+                td class="align-middle"

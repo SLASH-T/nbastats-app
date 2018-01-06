@@ -20,10 +20,9 @@
       h1 id='p_header'
         | TOP 5 Today
       p
-        | test
+        |
         code
-          | #page-content-wrapper
-        | .
+          |
       button{
            type='button' id='menu-toggle' name='menu-toggle'
            class='btn btn-info'
@@ -38,6 +37,10 @@
     tbody
       - gameinfos.each do |gameinfo|
         tr class="game_row" id="row"
+          - if gameinfo.away_abbreviation == "OKL"
+            - gameinfo.away_abbreviation = "OKC"
+          - if gameinfo.home_abbreviation == "OKL"
+            - gameinfo.home_abbreviation = "OKC"
           td
             img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.away_abbreviation}_p.png"
           td class="align-middle"
@@ -55,4 +58,5 @@
           td style="font-size:24px;" class="align-middle"
             form action="/game_data" method='post' id='game_data'
               input type="hidden"name="home_team" value='#{gameinfo.home_team}'
+              input type="hidden"name="away_team" value='#{gameinfo.away_team}'
               button class='btn btn-info' type='submit' value='#{gameinfo.home_team}' game data
