@@ -117,13 +117,14 @@ module NBAStats
           temp_away = []
           final_home = []
           final_away = []
+          puts $arr_player_info
           $arr_player_info.each do |players|
             players.players.each do |player|
               if (player.team_name == routing.params['home_team'])
-                temp_home.push(player.PTS.to_i)
+                temp_home.push(player.RK.to_f)
               end
               if (player.team_name == routing.params['away_team'])
-                temp_away.push(player.PTS.to_i)
+                temp_away.push(player.RK.to_f)
               end
             end
           end
@@ -132,23 +133,23 @@ module NBAStats
           puts "-----"
           $arr_player_info.each do |players|
             players.players.each do |player|
-              if (temp_home[temp_home.length-1] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+              if (temp_home[temp_home.length-1] == player.RK.to_f && player.team_name == routing.params['home_team'])
                 final_home.push(player)
               end
-              if (temp_home[temp_home.length-2] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+              if (temp_home[temp_home.length-2] == player.RK.to_f && player.team_name == routing.params['home_team'])
                 final_home.push(player)
               end
-              if (temp_home[temp_home.length-3] == player.PTS.to_i && player.team_name == routing.params['home_team'])
+              if (temp_home[temp_home.length-3] == player.RK.to_f && player.team_name == routing.params['home_team'])
                 final_home.push(player)
               end
 
-              if (temp_away[temp_away.length-1] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+              if (temp_away[temp_away.length-1] == player.RK.to_f && player.team_name == routing.params['away_team'])
                 final_away.push(player)
               end
-              if (temp_away[temp_away.length-2] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+              if (temp_away[temp_away.length-2] == player.RK.to_f && player.team_name == routing.params['away_team'])
                 final_away.push(player)
               end
-              if (temp_away[temp_away.length-3] == player.PTS.to_i && player.team_name == routing.params['away_team'])
+              if (temp_away[temp_away.length-3] == player.RK.to_f && player.team_name == routing.params['away_team'])
                 final_away.push(player)
               end
             end

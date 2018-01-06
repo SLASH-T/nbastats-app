@@ -190,6 +190,7 @@
           th PF
           th PTS
           th +/-
+          th Rank
     tbody
       - playerinfos.each do |playerinfo|
         - playerinfo.players.each do |player|
@@ -236,6 +237,8 @@
                 td class="align-middle"
                   span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
                 td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.RK}
+                td class="align-middle"
   table class="table table-striped" id="away_table" style="display:none"
     thead
         tr
@@ -259,6 +262,7 @@
           th PF
           th PTS
           th +/-
+          th Rank
     tbody
       - playerinfos.each do |playerinfo|
         - playerinfo.players.each do |player|
@@ -304,4 +308,6 @@
                   span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PTS}
                 td class="align-middle"
                   span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
+                td class="align-middle"
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.RK}
                 td class="align-middle"
