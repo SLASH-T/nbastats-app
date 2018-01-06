@@ -63,6 +63,7 @@ module NBAStats
 
       routing.on 'schedule' do
         routing.post do
+           puts routing.params
            create_request = Forms::DateRequest.call(routing.params)
            result = AddGame.new.call(create_request)
            # puts result.value.class
@@ -79,6 +80,11 @@ module NBAStats
                routing.redirect '/'
              end
            end
+        end
+      end
+      routing.on 'game_data' do
+        routing.post do
+          puts routing.params
         end
       end
     end

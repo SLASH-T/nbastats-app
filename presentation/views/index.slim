@@ -38,14 +38,14 @@
     tbody
       - gameinfos.each do |gameinfo|
         tr class="game_row" id="row"
-          td 
+          td
             img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.away_abbreviation}_p.png"
           td class="align-middle"
             span style="font-size:24px;" class="game_away_team" id="away_team" #{gameinfo.away_team}
           td class="align-middle"
             span style="font-size:24px;" class="game_away_score" id="away_score" #{gameinfo.away_score}
           td class="align-middle"
-            span style="font-size:24px;" final 
+            span style="font-size:24px;" final
           td class="align-middle"
             span style="font-size:24px;" class="game_home_score" id="home_score" #{gameinfo.home_score}
           td class="align-middle"
@@ -53,4 +53,6 @@
           td class="align-middle"
             img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.home_abbreviation}_p.png"
           td style="font-size:24px;" class="align-middle"
-            span game data
+            form action="/game_data" method='post' id='game_data'
+              input type="hidden"name="home_team" value='#{gameinfo.home_team}'
+              button class='btn btn-info' type='submit' value='#{gameinfo.home_team}' game data
