@@ -49,6 +49,7 @@ module NBAStats
     end
 
     def scheduleinfo(season,date)
+      puts season + date
       call_api(:get,['schedule', season, date])
     end
 
@@ -65,12 +66,14 @@ module NBAStats
     end
 
     def call_api(method, resources)
+      puts "here"
       url_route = [@config.api_url, resources].flatten.join'/'
+      puts url_route
 
       #puts url_route
       result = HTTP.send(method, url_route)
-      #puts "==|+=="
-      #puts result.to_s
+      puts "==|+=="
+      puts result.to_s
       #puts "==|-=="
       raise(result.to_s) if result.code >= 300
       ApiResponse.new(result.code, result.to_s)
