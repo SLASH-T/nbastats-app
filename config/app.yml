@@ -3,3 +3,5 @@ development:
   api_url: http://localhost:3030/api/v0.1
 test:
   api_url: http://localhost:3000/api/v0.1
+production:
+  api_url: https://nbastats-api.herokuapp.com/api/v0.1
