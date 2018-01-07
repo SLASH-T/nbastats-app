@@ -30,8 +30,10 @@ module NBAStats
           season = '2017-2018-regular'
         end
         puts season
+        puts "step0"
         Right(season: season, date: date)
       else
+        puts "step0.5"
         Left(input.errors.value.join('; '))
       end
     end
