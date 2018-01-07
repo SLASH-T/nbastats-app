@@ -11,9 +11,24 @@ module NBAStats
 
     def validate_input(input)
       if input.success?
-        season = '2017-playoff'
+        # season = '2017-playoff'
         date = input[:INPUT_DATETIME]
-        date = date.tr_s("/", "")
+        date = date.tr_s('/', '')
+        date_int = date.to_i
+        case date_int
+        when 1 .. 20151027
+          Left(input.errors.value.join('; '))
+        when 20151028 .. 20160417
+          season = '2015-2016-regular'
+        when 20160418 .. 20160620
+          season = '2016-playoff'
+        when 20161024 .. 20170414
+          season = '2016-2017-regular'
+        when 20170415 .. 20170613
+          season = '2017-playoff'
+        else
+          season = '2017-2018-regular'
+        end
         Right(season: season, date: date)
       else
         Left(input.errors.value.join('; '))
@@ -29,10 +44,10 @@ module NBAStats
 
     def parse_game(input)
       result_json = JSON.parse(input[:result])
-      #result_json.each_key {|key| puts key}
-      if result_json.keys[0] == "message"
+      # result_json.each_key {|key| puts key}
+      if result_json.keys[0] == 'message'
         Left(result_json.values[0])
-      elsif result_json.keys[0] == "schedules"
+      elsif result_json.keys[0] == 'schedules'
         if !result_json['schedules'].empty?
           Right(result_json)
         else
