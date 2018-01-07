@@ -49,7 +49,7 @@ module NBAStats
     end
 
     def scheduleinfo(season,date)
-      puts season + date
+      puts date
       call_api(:get,['schedule', season, date])
     end
 
