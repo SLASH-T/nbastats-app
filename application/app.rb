@@ -26,6 +26,7 @@ module NBAStats
         #repos_json = ApiGateway.new.scheduleinfo
         create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
         result = AddGame.new.call(create_request)
+        puts "step4"
         if result.success?
           flash[:notice] = 'New Schedule added!'
           $arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])

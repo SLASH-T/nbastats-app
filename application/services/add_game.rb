@@ -37,13 +37,16 @@ module NBAStats
     end
 
     def add_game(input)
+      puts "step1"
       result = ApiGateway.new.scheduleinfo(input[:season],input[:date])
+      puts "step2"
       Right(result: result.message)
     rescue StandardError => error
       Left(error.to_s)
     end
 
     def parse_game(input)
+      puts "step3"
       result_json = JSON.parse(input[:result])
       # result_json.each_key {|key| puts key}
       if result_json.keys[0] == 'message'
