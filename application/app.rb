@@ -26,43 +26,50 @@ module NBAStats
         #repos_json = ApiGateway.new.scheduleinfo
         create_request = Forms::DateRequest.call(INPUT_DATETIME:"2017/04/16")
         result = AddGame.new.call(create_request)
-        # json_result = JSON.parse(result.success)
-        # arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
         if result.success?
           flash[:notice] = 'New Schedule added!'
-          arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+          $arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
           $arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
-          #puts arr_player_info
-          view 'index', locals: { gameinfos: arr_game_info }
+
+          temp = []
+          final = []
+          #puts $arr_player_info
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+                temp.push(player.RK.to_f)
+            end
+          end
+          temp.sort!
+          #puts "-----"
+          $arr_player_info.each do |players|
+            players.players.each do |player|
+              if (temp[temp.length-1] == player.RK.to_f)
+                final.push(player)
+              end
+              if (temp[temp.length-2] == player.RK.to_f)
+                final.push(player)
+              end
+              if (temp[temp.length-3] == player.RK.to_f)
+                final.push(player)
+              end
+              if (temp[temp.length-4] == player.RK.to_f)
+                final.push(player)
+              end
+              if (temp[temp.length-5] == player.RK.to_f)
+                final.push(player)
+              end
+            end
+          end
+          view 'index', locals: { gameinfos: $arr_game_info,
+                                  topplayer_five: final}
         else
           flash[:error] = 'Cannot New Schedule!'
         end
-
-      # routing.redirect '/schedule'
-=begin
-        gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
-        gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
-                                                .from_json gameinfos_json
-
-        playerinfos_json = ApiGateway.new.playerinfo('2017-playoff','20170416-POR-GSW')
-        playerinfos = NBAStats::PlayersRepresenter.new(OpenStruct.new)
-                                                .from_json playerinfos_json
-
-        schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
-        schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
-                                                .from_json schedules_json
-
-
-        view 'index'
-=end
-=begin
-        , locals: { gameinfos: gameinfos,
-                               playerinfos: playerinfos.players,
-                               schedulesinfos: schedulesinfos.schedules
-                             }
-=end
       end
+
       $arr_player_info
+      $arr_game_info
+
       routing.on 'schedule' do
         routing.post do
            #puts routing.params
@@ -71,10 +78,40 @@ module NBAStats
            # puts result.value.class
            if result.success?
              flash[:notice] = 'New Schedule added!'
-             arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
+             $arr_game_info = LoadData.new.load_gameinfo(result.success['schedules'])
              $arr_player_info = LoadData.new.load_playerinfo(result.success['schedules'])
+             temp = []
+             final = []
              #puts $arr_player_info
-             view 'index', locals: { gameinfos: arr_game_info }
+             $arr_player_info.each do |players|
+               players.players.each do |player|
+                   temp.push(player.RK.to_f)
+               end
+             end
+             temp.sort!
+             #puts "-----"
+             $arr_player_info.each do |players|
+               players.players.each do |player|
+                 if (temp[temp.length-1] == player.RK.to_f)
+                   final.push(player)
+                 end
+                 if (temp[temp.length-2] == player.RK.to_f)
+                   final.push(player)
+                 end
+                 if (temp[temp.length-3] == player.RK.to_f)
+                   final.push(player)
+                 end
+                 if (temp[temp.length-4] == player.RK.to_f)
+                   final.push(player)
+                 end
+                 if (temp[temp.length-5] == player.RK.to_f)
+                   final.push(player)
+                 end
+               end
+             end
+             view 'index', locals: { gameinfos: $arr_game_info,
+                                     topplayer_five: final}
+
            else
              if result.value[0] == "Processing the summary request"
                flash[:notice] = "Processing........."
@@ -88,36 +125,11 @@ module NBAStats
       end
       routing.on 'game_data' do
         routing.post do
-=begin
-          temp = []
-          final = []
-          $arr_player_info.each do |players|
-            players.players.each do |player|
-              temp.push(player.PTS.to_i)
-            end
-          end
-          puts temp.sort!
-          puts "-----"
-          puts temp[temp.length-1]
-          $arr_player_info.each do |players|
-            players.players.each do |player|
-              if (temp[temp.length-1] == player.PTS.to_i)
-                final.push(player)
-              end
-              if (temp[temp.length-2] == player.PTS.to_i)
-                final.push(player)
-              end
-              if (temp[temp.length-3] == player.PTS.to_i)
-                final.push(player)
-              end
-            end
-          end
-=end
           temp_home = []
           temp_away = []
           final_home = []
           final_away = []
-          puts $arr_player_info
+          #puts $arr_player_info
           $arr_player_info.each do |players|
             players.players.each do |player|
               if (player.team_name == routing.params['home_team'])
@@ -128,9 +140,9 @@ module NBAStats
               end
             end
           end
-          puts temp_home.sort!
-          puts temp_away.sort!
-          puts "-----"
+          temp_home.sort!
+          temp_away.sort!
+          #puts "-----"
           $arr_player_info.each do |players|
             players.players.each do |player|
               if (temp_home[temp_home.length-1] == player.RK.to_f && player.team_name == routing.params['home_team'])
@@ -154,35 +166,23 @@ module NBAStats
               end
             end
           end
+          $arr_game_info.each do |gameinfo|
+            if gameinfo.home_team == routing.params["home_team"]
+              $home_score = gameinfo.home_score
+            end
+            if gameinfo.away_team == routing.params["away_team"]
+              $away_score = gameinfo.away_score
+            end
+          end
           view 'player_data',locals: { playerinfos: $arr_player_info ,
                                        teamname: routing.params,
                                        topplayer_home: final_home,
-                                       topplayer_away: final_away
+                                       topplayer_away: final_away,
+                                       home_game_score: $home_score,
+                                       away_game_score: $away_score
                                      }
         end
       end
     end
   end
 end
-=begin
-        gameinfos_json = ApiGateway.new.gameinfo('2017-playoff','20170416-POR-GSW')
-        gameinfos = NBAStats::GameinfoRepresenter.new(OpenStruct.new)
-                                                .from_json gameinfos_json
-
-        playerinfos_json = ApiGateway.new.playerinfo('2017-playoff','20170416-POR-GSW')
-        playerinfos = NBAStats::PlayersRepresenter.new(OpenStruct.new)
-                                                .from_json playerinfos_json
-
-        schedules_json = ApiGateway.new.scheduleinfo('2017-playoff','20170416')
-        schedulesinfos = NBAStats::SchedulesRepresenter.new(OpenStruct.new)
-                                                .from_json schedules_json
-
-
-        view 'index'
-=end
-=begin
-        , locals: { gameinfos: gameinfos,
-                               playerinfos: playerinfos.players,
-                               schedulesinfos: schedulesinfos.schedules
-                             }
-=end

@@ -136,7 +136,6 @@
            class='btn btn-info'
            a.href="#menu-toggle"
       } Toggle Menu
-
       button{
            type='button' id='switch1' name='switch1'
            class='btn btn-info'
@@ -167,8 +166,40 @@
         |  $("#menu-toggle").click(function(e) { e.preventDefault(); $("#wrapper").toggleClass("toggled"); });
 
 
+  ruby:
+    def praise(rank)
+      case rank
+      when 30.0 .. 1000.0
+        "S+"
+      when 27.0 ... 30.0
+        "S"
+      when 24.0 ... 27.0
+        "S-"
+      when 21.0 ... 24.0
+        "A+"
+      when 18.0 ... 21.0
+        "A"
+      when 15.0 ... 18.0
+        "A-"
+      when 12.0 ... 15.0
+        "B+"
+      when 9.0 ... 12.0
+        "B"
+      when 6.0 ... 9.0
+        "B-"
+      when 3.0 ... 6.0
+        "C+"
+      when 0.0 ... 3.0
+        "C"
+      else
+        "C-"
+      end
+    end
+
   table class="table table-striped" id="home_table" style="display:block"
     thead
+        tr
+          th #{teamname["home_team"]} #{home_game_score}
         tr
           th Player
           th FGM
@@ -237,10 +268,12 @@
                 td class="align-middle"
                   span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
                 td class="align-middle"
-                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.RK}
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{praise(player.RK)}
                 td class="align-middle"
   table class="table table-striped" id="away_table" style="display:none"
     thead
+        tr
+          th #{teamname["away_team"]} #{away_game_score}
         tr
           th Player
           th FGM
@@ -309,5 +342,5 @@
                 td class="align-middle"
                   span style="font-size:20px;" class="game_away_score" id="away_score" #{player.PM}
                 td class="align-middle"
-                  span style="font-size:20px;" class="game_away_score" id="away_score" #{player.RK}
+                  span style="font-size:20px;" class="game_away_score" id="away_score" #{praise(player.RK)}
                 td class="align-middle"

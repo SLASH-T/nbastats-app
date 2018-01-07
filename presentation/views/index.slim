@@ -17,17 +17,34 @@
                 |  $(function () { $("#datetimepicker1").datetimepicker({ format: 'YYYY/MM/DD', }).on('dp.change', function (e) { var d = new Date(e.date); var value = ""; value += d.getFullYear(); var month = d.getMonth()+1; month = month < 10 ? '0' + month : '' + month ; value += month; var date = d.getDate(); date = date < 10 ? '0' + date : '' + date ; value += date; console.log(value); $("#add_game").submit(); }); });
   #page-content-wrapper
     .container-fluid
-      h1 id='p_header'
-        | TOP 5 Today
-      p
-        |
-        code
-          |
       button{
            type='button' id='menu-toggle' name='menu-toggle'
            class='btn btn-info'
            a.href="#menu-toggle"
       } Toggle Menu
+      h1 id='p_header' align="center"
+        | Top 5 Today
+      p
+      table class="table" id="game_table"
+        tbody
+          - for i in 0..1
+            tr class="top5row" id="top5row"
+            - for j in 0..4
+              - first_name = topplayer_five[j].player_name.downcase.split[0]
+              - last_name = topplayer_five[j].player_name.downcase.split[1]
+              - if i == 0
+                td
+                  img src="https://nba-players.herokuapp.com/players/#{last_name}/#{first_name}" class="rounded-circle" alt="Cinque Terre" width="250" height="196"
+                td class="align-middle"
+              - if i == 1
+                td align="center"
+                  span style="font-size:24px;" #{topplayer_five[j].player_name}
+                td class="align-middle"
+
+          /div style="display:inline"
+
+            div style="font-size:18px; display:inline"  #{topplayer_five[i].player_name}
+          /"#{topplayer_five[i].player_name}" "#{topplayer_five[i].RK}"
       /a#menu-toggle.btn.btn-info[href="#menu-toggle"]
         | Toggle Menu
       script[type="text/javascript"]
