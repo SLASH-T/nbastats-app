@@ -58,6 +58,11 @@
             - gameinfo.away_abbreviation = "OKC"
           - if gameinfo.home_abbreviation == "OKL"
             - gameinfo.home_abbreviation = "OKC"
+          - if gameinfo.away_abbreviation == "BRO"
+            - gameinfo.away_abbreviation = "BKN"
+          - if gameinfo.home_abbreviation == "BRO"
+            - gameinfo.home_abbreviation = "BKN"
+
           td
             img src="https://neulionms-a.akamaihd.net/nba/player/v1/nba/site/images/teams/#{gameinfo.away_abbreviation}_p.png"
           td class="align-middle"

@@ -16,19 +16,20 @@ module NBAStats
         date = date.tr_s('/', '')
         date_int = date.to_i
         case date_int
-        when 1 .. 20151027
+        when 1..20151027
           Left(input.errors.value.join('; '))
-        when 20151028 .. 20160417
+        when 20151028..20160417
           season = '2015-2016-regular'
-        when 20160418 .. 20160620
+        when 20160418..20160620
           season = '2016-playoff'
-        when 20161024 .. 20170414
+        when 20161024..20170414
           season = '2016-2017-regular'
-        when 20170415 .. 20170613
+        when 20170415..20170613
           season = '2017-playoff'
         else
           season = '2017-2018-regular'
         end
+        puts season
         Right(season: season, date: date)
       else
         Left(input.errors.value.join('; '))
